@@ -861,8 +861,8 @@
 			"src_candidate_id": 258,
 			"name": "簡東明",
 			"candidate_id": 11,
-			"all_proposal": 0,
-			"three_proposal": 0,
+			"all_proposal": 35,
+			"three_proposal": 7,
 			"party_name": "中國國民黨"
 		},
 		{
@@ -877,24 +877,24 @@
 			"src_candidate_id": 260,
 			"name": "鄭天財",
 			"candidate_id": 39,
-			"all_proposal": 0,
-			"three_proposal": 0,
+			"all_proposal": 108,
+			"three_proposal": 23,
 			"party_name": "中國國民黨"
 		},
 		{
 			"src_candidate_id": 261,
 			"name": "廖國棟",
 			"candidate_id": 92,
-			"all_proposal": 0,
-			"three_proposal": 0,
+			"all_proposal": 60,
+			"three_proposal": 16,
 			"party_name": "中國國民黨"
 		},
 		{
 			"src_candidate_id": 262,
 			"name": "高潞．以用．巴魕剌",
 			"candidate_id": 108,
-			"all_proposal": 0,
-			"three_proposal": 0,
+			"all_proposal": 146,
+			"three_proposal": 38,
 			"party_name": "時代力量"
 		}
 	]
