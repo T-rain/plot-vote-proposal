@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+  <div id="div1"></div>
+  <div id="div2"></div>
+  <div id="div3"></div>
+  <script>
+    const main = async()=>{
+      let result = await fetch('data.json').then(response=>response.json());
+      
+      result.data = result.data.map(ele=>{
+        ele.rate = Number((ele.three_proposal/ele.all_proposal).toFixed(4))
+        return ele
+      })
+      //     all_proposal: 341
+      // candidate_id: 88
+      // name: "莊瑞雄"
+      // party_name: "民主進步黨"
+      // src_candidate_id: 27
+      // three_proposal: 82
+
+      
+      // 由小而大
+      const generateDraw = (column,title,range)=>{
+        const wantArray = result.data.sort((a,b)=>{
+          return a[column] - b[column]
+        })
+        const x = wantArray.map(ele=>{
+          return ele.name
+        })
+        const y = wantArray.map(ele=>{
+          return ele[column]
+        })
+        const color = wantArray.map(ele=>{
+          switch (ele.party_name) {
+            case "民主進步黨":
+              return 'rgb(0, 154, 0)'
+              break;
+            case "中國國民黨":
+              return 'rgb(2, 30, 170)'
+              break;
+            case "親民黨":
+              return 'rgb(254, 100, 7)'
+              break;
+            case "時代力量":
+              return '#f9be02'
+              break;
+            default:
+              return 'gray'
+              break;
+          }
+        })
+
+        // let traceAvg = {
+        //   x,
+        //   y: Array.from(Array(y.length), ele => avg),
+        //   marker:{
+        //     color:'#ef7b8b',
+        //   },
+        //   type: 'scatter'
+        // };
+
+        let trace = {
+          x,
+          y,
+          marker:{
+            color,
+          },
+          type: 'bar'
+        };
+        let data = [trace];
+
+        let layout;
+        if(range){
+          layout = {
+            title,
+            xaxis: {
+              tickfont:{
+                size:3
+              }
+            },
+            yaxis: {
+              range
+            }
+          };
+          console.log(layout)
+        }else{
+          layout = {
+            title,
+            xaxis: {
+              tickfont:{
+                size:3
+              }
+            }
+          };
+        }
+        return { data,layout }
+      }
+      
+      const { data:data1,layout:layout1 } = generateDraw("all_proposal","主提案總數")
+      Plotly.newPlot('div1', data1, layout1);
+
+      const { data:data2,layout:layout2 } = generateDraw("three_proposal","主提案三讀數")
+      Plotly.newPlot('div2', data2, layout2);
+
+      const { data:data3,layout:layout3 } = generateDraw("rate","主提案三讀率",[0,1])
+      Plotly.newPlot('div3', data3, layout3);
+
+      // Plotly.newPlot('div1', data, layout);
+
+    // x: party name
+    // y: all_proposal,three_proposal,rate
+    // color: party name
+
+    }
+
+    main();
+  </script>
+</body>
+</html>
